@@ -3,8 +3,36 @@ import logo from './logo.svg'
 import './App.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { editUser, removeUser, userAdded } from './redux/usersSlice'
+import { createMachine } from 'xstate'
 
 function App() {
+
+  // create state
+  const stateMachine = createMachine({
+    initial: 'idle',
+    states: {
+      idle: {
+        on: {
+          SUBMIT: 'loading'
+        }
+      },
+      loading: {
+        on: {
+          PAYMENT_RECEIVED: "success",
+          PAYMENT_FAILED: "failed"
+        }
+      },
+      error: {
+        on: {
+          SUBMIT: "loading"
+        }
+      },
+      success: {
+        type: 'final'
+      }
+    }
+  })
+
   const [count, setCount] = useState(0)
 
   let usersState = useSelector( state => state.users)
