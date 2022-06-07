@@ -12,6 +12,8 @@ const usersSlice = createSlice({
     // inside here you try to add new redux components
     reducers: {
         userAdded(state, action) {
+            console.log('reached ...');
+            
             state.push(action.payload)
         }
     }
