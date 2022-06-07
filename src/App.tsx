@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import logo from './logo.svg'
 import './App.css'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { userAdded } from './redux/usersSlice'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -9,6 +10,17 @@ function App() {
   const usersState = useSelector( state => state.users)
 
   console.log("Users: ", usersState);
+
+  const dispatch = useDispatch();
+
+  const handleAddUser = () => {
+    const newUser = { username: 'giselle', age: 34}
+
+    dispatch(
+      userAdded(newUser)
+    )
+    
+  }
   
 
   return (
@@ -20,6 +32,7 @@ function App() {
           <button type="button" onClick={() => setCount((count) => count + 1)}>
             count is: {count}
           </button>
+          <button onSubmit={handleAddUser}>ADD NEW USER</button>
         </p>
         <p>
           Edit <code>App.tsx</code> and save to test HMR updates.

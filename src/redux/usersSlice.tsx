@@ -11,8 +11,13 @@ const usersSlice = createSlice({
     initialState,
     // inside here you try to add new redux components
     reducers: {
-
+        userAdded(state, action) {
+            state.push(action.payload)
+        }
     }
 })
+
+// making action available
+export const {userAdded} = usersSlice.actions
 
 export default usersSlice.reducer
